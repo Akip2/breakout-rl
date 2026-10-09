@@ -94,7 +94,6 @@ class GameRenderer:
         )
 
         self._draw_score()
-        self._draw_help()
         self._draw_status()
 
         pygame.display.flip()
@@ -127,18 +126,6 @@ class GameRenderer:
         )
 
         self._screen.blit(text, (10, 10))
-
-    def _draw_help(self):
-        text = self._font.render(
-            "Move with left/right arrows",
-            True,
-            self.help_color
-        )
-
-        self._screen.blit(
-            text,
-            (5, HEIGHT - 20)
-        )
 
     def _draw_status(self):
         status = self._game.get_game_status()

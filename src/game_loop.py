@@ -67,7 +67,7 @@ class GameLoop:
                     else:
                         game_renderer.tick()
                 else:
-                    time.sleep(sys.float_info.min)
+                    time.sleep(sys.float_info.min) # allow ctrl-c quit
 
                 if status != GameStatus.ON_GOING:
                     break

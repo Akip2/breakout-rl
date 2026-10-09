@@ -22,7 +22,6 @@ class QTrainer:
         actions = torch.tensor(np.array(actions), dtype=torch.long).unsqueeze(1)
         rewards = torch.tensor(np.array(rewards), dtype=torch.float32)
         dones = torch.tensor(np.array(dones), dtype=torch.float32)
-        print(dones.shape)
 
         q_values = self._model(states).gather(1, actions).squeeze(1)
 

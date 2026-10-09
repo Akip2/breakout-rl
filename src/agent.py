@@ -10,13 +10,13 @@ from q_trainer import QTrainer
 MAX_MEMORY = 100_000
 BATCH_SIZE = 64
 MIN_MEMORY = 1_000
-TARGET_SYNC_EVERY = 500
+TARGET_SYNC_EVERY = 500 
 
 LR = 0.001
-GAMMA = 0.99
+GAMMA = 0.95
 
 EPS_START = 1.0
-EPS_MIN = 0.05
+EPS_MIN = 0.025
 EPS_DECAY_STEPS = 30_000
 
 STATE_SIZE = 6
@@ -48,13 +48,21 @@ class Agent:
         ball = self._game.get_ball()
         player = self._game.get_player()
 
+        normalized_player_x = (player.position.x - 100) / (500 - 100)
+        normalized_ball_x = (ball.position.x - 50) / 550
+        normalized_ball_y = (ball.position.y) / 550
+        normalized_diff_x = (normalized_ball_x - normalized_player_x)
+
+        normalized_ball_vel_x = (ball.velocity.x + 300) / (300 + 300)
+        normalized_ball_vel_y = (ball.velocity.y + 400) / (400 + 400)
+
         return (
-            (player.position.x - 300) / 250,
-            (ball.position.x - 300) / 250,
-            (ball.position.y - 300) / 250,
-            ball.velocity.x / 400,
-            ball.velocity.y / 400,
-            (ball.position.x - player.position.x) / 250,  # ecart relatif
+            normalized_player_x,
+            normalized_ball_x,
+            normalized_ball_y,
+            normalized_ball_vel_x,
+            normalized_ball_vel_y,
+            normalized_diff_x,
         )
 
     def get_action(self, state) -> int:
